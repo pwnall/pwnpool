@@ -1,0 +1,29 @@
+<%= form_for(@docker_host) do |f| %>
+  <% if @docker_host.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@docker_host.errors.count, "error") %> prohibited this docker_host from being saved:</h2>
+
+      <ul>
+      <% @docker_host.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br>
+    <%= f.text_area :url %>
+  </div>
+  <div class="field">
+    <%= f.label :ssl_cert %><br>
+    <%= f.text_area :ssl_cert %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

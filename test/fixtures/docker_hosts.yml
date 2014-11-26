@@ -1,0 +1,9 @@
+local:
+  user: john
+  name: '127-local-host'
+  url: <%= (ENV['DOCKER_URL'] || ENV['DOCKER_HOST']).inspect %>
+  <% if ENV['DOCKER_CERT_PATH'] %>
+  ca_cert_pem: <%= File.read(File.join(ENV['DOCKER_CERT_PATH'], 'ca.pem')).inspect %>
+  client_cert_pem: <%= File.read(File.join(ENV['DOCKER_CERT_PATH'], 'cert.pem')).inspect %>
+  client_key_pem: <%= File.read(File.join(ENV['DOCKER_CERT_PATH'], 'key.pem')).inspect %>
+  <% end %>

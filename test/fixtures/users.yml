@@ -1,0 +1,11 @@
+jane:
+  exuid: 12345
+  admin: true
+
+john:
+  exuid: 56789
+  admin: false
+
+bill:
+  exuid: 98765
+  admin: false
