@@ -5,3 +5,22 @@
   <%= @docker_host.url %>
 </p>
 
+<% if @docker_host.version_info %>
+<ul>
+  <li>
+    OS: <%= @docker_host.version_info.os %>
+  </li>
+  <li>
+    Arch: <%= @docker_host.version_info.arch %>
+  </li>
+  <li>
+    Kernel: <%= @docker_host.version_info.kernel %>
+  </li>
+  <li>
+    Docker version: <%= @docker_host.version_info.docker %>
+  </li>
+  <li>
+    API version: <%= @docker_host.version_info.api %>
+  </li>
+</ul>
+<% end %>

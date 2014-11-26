@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141126032930) do
+ActiveRecord::Schema.define(version: 20141126115449) do
 
   create_table "credentials", force: true do |t|
     t.integer  "user_id",    limit: 4,    null: false
@@ -37,6 +37,18 @@ ActiveRecord::Schema.define(version: 20141126032930) do
   end
 
   add_index "docker_hosts", ["user_id", "name"], name: "index_docker_hosts_on_user_id_and_name", unique: true, using: :btree
+
+  create_table "docker_versions", force: true do |t|
+    t.integer  "host_id", limit: 4,   null: false
+    t.string   "os",      limit: 32,  null: false
+    t.string   "arch",    limit: 32,  null: false
+    t.string   "docker",  limit: 32,  null: false
+    t.string   "api",     limit: 32,  null: false
+    t.string   "kernel",  limit: 256, null: false
+    t.datetime "read_at",             null: false
+  end
+
+  add_index "docker_versions", ["host_id"], name: "index_docker_versions_on_host_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "exuid",      limit: 32, null: false

@@ -1,0 +1,9 @@
+local:
+  host: local
+  docker: "1.3.2"
+  api: "1.15"
+  kernel: "3.16.7-tinycore64"
+  os: linux
+  arch: amd64
+  # NOTE: ensuring that read_at exceeds the DockerHost's updated_at field
+  read_at: <%= (Time.now + 1.minute).inspect %>

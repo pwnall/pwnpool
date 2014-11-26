@@ -49,26 +49,19 @@ class DockerHost < ActiveRecord::Base
     end
   end
 
+  # Cached version information for the Docker daemon.
+  has_one :version_info, dependent: :destroy, class_name: 'DockerVersion',
+      foreign_key: :host_id, inverse_of: :host
+
+  # Updates the cached version information.
+  def ensure_version_info_updated
+    build_version_info unless version_info
+    version_info.ensure_updated
+  end
+
   # True if this connection information includes TLS key material.
   def uses_tls?
     !client_key_pem.nil?
-  end
-
-  # The Docker daemon's response to the version API call.
-  #
-  # @return {Object} the daemon's response, or null if the API call failed
-  def docker_version_object
-    # TODO(pwnall): the cache doesn't cover the nil case
-    @_docker_version_object ||= docker_version_object!
-  end
-
-  # Uncached version of {#docker_version_object}.
-  def docker_version_object!
-    begin
-      Docker.version docker_connection
-    rescue Excon::Errors::Error
-      nil
-    end
   end
 
   # A connection to the referenced Docker daemon.

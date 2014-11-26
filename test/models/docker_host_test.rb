@@ -73,14 +73,18 @@ class DockerHostTest < ActiveSupport::TestCase
     assert_operator version, :has_key?, 'Version'
   end
 
-  test 'docker_version_object' do
-    version_object = @host.docker_version_object
-    assert_not_nil version_object['Version']
+  test 'ensure_version_info_updated for new host' do
+    @host.save!
+    @host.ensure_version_info_updated
+    assert @host.version_info.up_to_date?
   end
 
-  test 'docker_version_object is null for an invalid connection' do
-    @host.url = 'tcp://0.0.0.0:2376'
-    assert_nil @host.docker_version_object
+  test 'ensure_version_info_updated for existing host' do
+    host = docker_hosts(:local)
+    host.version_info.read_at = Time.now - 2.days
+    assert !host.version_info.up_to_date?, 'test setup error'
+    host.ensure_version_info_updated
+    assert host.version_info.up_to_date?
   end
 
   test '.random_name' do

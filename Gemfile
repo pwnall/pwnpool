@@ -7,7 +7,7 @@ gem 'rails', '>= 4.2.0.beta4'
 # TODO(pwnall): remove this when a newer Rails gets released.
 gem 'arel', '6.0.0.beta2'
 
-# Use PostgreSQL as the database for Active Record
+# Use PostgreSQL as the database for Active Record.
 gem 'pg', '>= 0.17.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.0.beta1'
@@ -62,6 +62,8 @@ gem 'rubyzip', '>= 1.1.6', require: 'zip'
 group :development, :test do
   # Use MySQL in dev, because we can db:drop without a server restart.
   gem 'mysql2', '>= 0.3.17'
+
+  gem 'mocha', '>= 1.1.0'
 
   # Fancy error pages.
   gem 'better_errors'

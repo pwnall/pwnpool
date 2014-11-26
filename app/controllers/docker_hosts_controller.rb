@@ -11,6 +11,7 @@ class DockerHostsController < ApplicationController
   # GET /docker_hosts/1
   # GET /docker_hosts/1.json
   def show
+    @docker_host.ensure_version_info_updated
   end
 
   # GET /docker_hosts/new
@@ -31,6 +32,7 @@ class DockerHostsController < ApplicationController
 
     respond_to do |format|
       if @docker_host.save
+        @docker_host.ensure_version_info_updated
         format.html do
           redirect_to docker_hosts,
                       notice: "Docker host #{@docker_host.name} created."
@@ -50,6 +52,7 @@ class DockerHostsController < ApplicationController
   def update
     respond_to do |format|
       if @docker_host.update(docker_host_params)
+        @docker_host.ensure_version_info_updated
         format.html { redirect_to @docker_host, notice: 'Docker host was successfully updated.' }
         format.json { render :show, status: :ok, location: @docker_host }
       else
