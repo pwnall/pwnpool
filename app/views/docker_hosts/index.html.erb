@@ -1,31 +1,41 @@
-<p id="notice"><%= notice %></p>
+<h2>Docker Hosts</h2>
 
-<h1>Listing Docker Hosts</h1>
+<p>
+  <%= link_to new_docker_host_path, class: 'button success' do %>
+    <%= fa_icon :plus %>
+    Add Docker Host
+  <% end %>
+</p>
 
 <table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Url</th>
-      <th>Ssl cert</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
   <tbody>
     <% @docker_hosts.each do |docker_host| %>
       <tr>
-        <td><%= docker_host.user %></td>
-        <td><%= docker_host.url %></td>
-        <td><%= docker_host.ssl_cert %></td>
-        <td><%= link_to 'Show', docker_host %></td>
-        <td><%= link_to 'Edit', edit_docker_host_path(docker_host) %></td>
-        <td><%= link_to 'Destroy', docker_host, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to docker_host.name, docker_host %>
+        </td>
+        <td>
+          <%= docker_host.url %>
+        </td>
+        <td>
+        <% if docker_host.uses_tls? %>
+          <%= fa_icon :lock, title: 'Secured with TLS' %>
+        <% else %>
+          <%= fa_icon :unlock, title: 'Not secured with TLS' %>
+        <% end %>
+        </td>
+        <td>
+          <%= link_to edit_docker_host_path(docker_host) do %>
+            <%= fa_icon :pencil %> Edit
+          <% end %>
+        </td>
+        <td>
+          <%= link_to docker_host, method: :delete,
+                  data: { confirm: 'Are you sure?' } do %>
+            <%= fa_icon :trash %> Delete
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Docker host', new_docker_host_path %>

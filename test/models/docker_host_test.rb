@@ -19,19 +19,50 @@ class DockerHostTest < ActiveSupport::TestCase
   test 'rejects invalid client keys' do
     @host.client_key_pem = "-----BEGIN RSA PRIVATE KEY-----\n"
     assert !@host.valid?
-    assert_not_nil @host.errors[:client_key_pem]
+    assert_not_empty @host.errors[:client_key_pem]
+  end
+
+  test 'accepts empty client keys' do
+    @host.client_key_pem = ''
+    assert_equal nil, @host.client_key_pem
+    assert @host.valid?, @host.errors.inspect
   end
 
   test 'rejects invalid client certificates' do
     @host.client_cert_pem = "-----BEGIN CERTIFICATE-----\n"
     assert !@host.valid?
-    assert_not_nil @host.errors[:client_cert_pem]
+    assert_not_empty @host.errors[:client_cert_pem]
+  end
+
+  test 'accepts empty client certificates' do
+    @host.client_cert_pem = ''
+    assert_equal nil, @host.client_cert_pem
+    assert @host.valid?, @host.errors.inspect
   end
 
   test 'rejects invalid CA certificates' do
     @host.ca_cert_pem = "-----BEGIN CERTIFICATE-----\n"
     assert !@host.valid?
-    assert_not_nil @host.errors[:ca_cert_pem]
+    assert_not_empty @host.errors[:ca_cert_pem]
+  end
+
+  test 'accepts empty CA certificates' do
+    @host.ca_cert_pem = ''
+    assert_equal nil, @host.ca_cert_pem
+    assert @host.valid?, @host.errors.inspect
+  end
+
+  test 'rejects duplicate names' do
+    @host.name = docker_hosts(:local).name
+    @host.user = docker_hosts(:local).user
+    assert !@host.valid?
+    assert_not_empty @host.errors[:name]
+  end
+
+  test 'rejects names with periods' do
+    @host.name = 'a.b'
+    assert !@host.valid?
+    assert_not_empty @host.errors[:name]
   end
 
   test 'docker_connection works for a valid connection' do
@@ -52,8 +83,17 @@ class DockerHostTest < ActiveSupport::TestCase
     assert_nil @host.docker_version_object
   end
 
-  test '#random_name' do
+  test '.random_name' do
     names = (1..10).map { DockerHost.random_name }.uniq
     assert_equal 10, names.length
+  end
+
+  test 'to_param' do
+    assert_equal 'test-host', @host.to_param
+  end
+
+  test 'with_user_and_name' do
+    assert_equal docker_hosts(:local), DockerHost.with_user_and_name(
+        docker_hosts(:local).user, docker_hosts(:local).name).first
   end
 end

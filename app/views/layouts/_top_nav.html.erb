@@ -11,10 +11,17 @@
   <% if current_user %>
   <section class="top-bar-section">
     <ul class="left">
-      <li>
-        <%= link_to new_docker_host_path do %>
-          <%= fa_icon :link %> Add Docker Host
+      <li class="has-dropdown">
+        <%= link_to docker_hosts_path do %>
+          <%= fa_icon :'hdd-o' %> Docker Hosts
         <% end %>
+        <ul class="dropdown">
+          <li>
+            <%= link_to new_docker_host_path do %>
+              <%= fa_icon :link %> Add Docker Host
+            <% end %>
+          </li>
+        </ul>
       </li>
     </ul>
     <ul class="right">

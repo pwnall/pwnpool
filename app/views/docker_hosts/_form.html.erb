@@ -1,29 +1,26 @@
-<%= form_for(@docker_host) do |f| %>
-  <% if @docker_host.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@docker_host.errors.count, "error") %> prohibited this docker_host from being saved:</h2>
+<%= form_for @docker_host, builder: FoundationFormBuilder do |f| %>
+  <%= f.text_field :name, required: true, autofocus: true,
+          placeholder: 'my-docker-host', label: 'Name' %>
 
-      <ul>
-      <% @docker_host.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.url_field :url, required: true,
+          placeholder: 'tcp://192.168.10.100:2376',
+          label: 'Docker URL' %>
 
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_area :url %>
-  </div>
-  <div class="field">
-    <%= f.label :ssl_cert %><br>
-    <%= f.text_area :ssl_cert %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <%= f.text_area :ca_cert_pem,
+          placeholder: '-----BEGIN CERTIFICATE-----',
+          label: 'Server CA certificate (ca.pem)' %>
+
+  <%= f.text_area :client_cert_pem,
+          placeholder: '-----BEGIN CERTIFICATE-----',
+          label: 'Client certificate (cert.pem)' %>
+
+  <%= f.text_area :client_key_pem,
+          placeholder: '-----BEGIN RSA PRIVATE KEY-----',
+          label: 'Client private key (key.pem)' %>
+
+  <div class="row">
+    <%= button_tag type: 'submit', class: 'large success button expand' do %>
+      <%= fa_icon :upload %> Save Docker Host
+    <% end %>
   </div>
 <% end %>

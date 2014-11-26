@@ -3,9 +3,9 @@ class User < ActiveRecord::Base
   include Authpwn::UserModel
 
   # Virtual email attribute, with validation.
-  # include Authpwn::UserExtensions::EmailField
+  include Authpwn::UserExtensions::EmailField
   # Virtual password attribute, with confirmation validation.
-  # include Authpwn::UserExtensions::PasswordField
+  include Authpwn::UserExtensions::PasswordField
 
   # Change this to customize user lookup in the e-mail/password signin process.
   #
@@ -54,6 +54,7 @@ class User < ActiveRecord::Base
   end
 
   # Add your extensions to the User class here.
+
   before_validation :set_admin, on: :create
   def set_admin
     if admin.nil?
@@ -63,4 +64,7 @@ class User < ActiveRecord::Base
     end
   end
   private :set_admin
+
+  # The user's Docker servers.
+  has_many :docker_hosts, dependent: :destroy, inverse_of: :user
 end

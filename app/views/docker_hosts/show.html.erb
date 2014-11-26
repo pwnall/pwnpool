@@ -1,19 +1,7 @@
-<p id="notice"><%= notice %></p>
+<h2>Docker Host <%= @docker_host.name %></h2>
 
 <p>
-  <strong>User:</strong>
-  <%= @docker_host.user %>
-</p>
-
-<p>
-  <strong>Url:</strong>
+  <%= fa_icon :link, title: 'Docker URL' %>
   <%= @docker_host.url %>
 </p>
 
-<p>
-  <strong>Ssl cert:</strong>
-  <%= @docker_host.ssl_cert %>
-</p>
-
-<%= link_to 'Edit', edit_docker_host_path(@docker_host) %> |
-<%= link_to 'Back', docker_hosts_path %>

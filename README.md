@@ -1,6 +1,6 @@
 #  PwnPool
 
-This is an attempt at managing
+This is an attempt at managing Docker containers.
 
 ## Development Setup
 
