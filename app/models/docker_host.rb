@@ -53,6 +53,10 @@ class DockerHost < ActiveRecord::Base
   has_one :version_info, dependent: :destroy, class_name: 'DockerVersion',
       foreign_key: :host_id, inverse_of: :host
 
+  # Images stored on this Docker daemon's host.
+  has_many :images, dependent: :destroy, class_name: 'DockerImage',
+      foreign_key: :host_id, inverse_of: :host
+
   # Updates the cached version information.
   def ensure_version_info_updated
     build_version_info unless version_info

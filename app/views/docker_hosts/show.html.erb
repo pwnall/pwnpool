@@ -11,6 +11,9 @@
     OS: <%= @docker_host.version_info.os %>
   </li>
   <li>
+    OS Label: <%= @docker_host.version_info.os_label %>
+  </li>
+  <li>
     Arch: <%= @docker_host.version_info.arch %>
   </li>
   <li>
@@ -21,6 +24,18 @@
   </li>
   <li>
     API version: <%= @docker_host.version_info.api %>
+  </li>
+  <li>
+    Debug mode: <%= @docker_host.version_info.debug_mode? %>
+  </li>
+  <li>
+    Can limit memory: <%= @docker_host.version_info.can_limit_memory? %>
+  </li>
+  <li>
+    Can limit swap: <%= @docker_host.version_info.can_limit_memory? %>
+  </li>
+  <li>
+    Can forward IPv4: <%= @docker_host.version_info.can_forward_ipv4? %>
   </li>
 </ul>
 <% end %>

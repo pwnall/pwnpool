@@ -19,16 +19,11 @@ rake db:create db:migrate
 
 The tests require `DOCKER_` environment variables pointing to a valid server.
 
-If using `boot2docker`, start it, and run the `export` commands that it
-outputs.
+If using `boot2docker`, start the docker VM, and use `shellinit` to set up the
+environment variables.
 
 ```bash
 boot2docker start
 
-# Don't copy-paste the commands below.
-# Use the output from your invocation of boot2docker start.
-
-export DOCKER_HOST=tcp://192.168.59.103:2376
-export DOCKER_CERT_PATH=/Users/pwnall/.boot2docker/certs/boot2docker-vm
-export DOCKER_TLS_VERIFY=1
+$(boot2docker shellinit)
 ```

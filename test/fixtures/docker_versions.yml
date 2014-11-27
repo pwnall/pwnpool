@@ -4,6 +4,11 @@ local:
   api: "1.15"
   kernel: "3.16.7-tinycore64"
   os: linux
+  os_label: "Boot2Docker 1.3.2 (TCL 5.4); master : 495c19a - Mon Nov 24 20:40:58 UTC 2014"
   arch: amd64
+  can_limit_memory: true
+  can_limit_swap: true
+  can_forward_ipv4: true
+  debug_mode: false
   # NOTE: ensuring that read_at exceeds the DockerHost's updated_at field
   read_at: <%= (Time.now + 1.minute).inspect %>

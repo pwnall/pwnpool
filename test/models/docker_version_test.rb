@@ -19,6 +19,10 @@ class DockerVersionTest < ActiveSupport::TestCase
     assert_nil version.docker
     assert_nil version.api
     assert_nil version.kernel
+    assert_nil version.os_label
+    assert_nil version.can_limit_memory
+    assert_nil version.can_limit_swap
+    assert_nil version.debug_mode
     assert_nil version.read_at
   end
 
