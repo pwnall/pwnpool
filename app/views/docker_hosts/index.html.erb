@@ -25,6 +25,12 @@
         <% end %>
         </td>
         <td>
+          <%= link_to refresh_docker_host_path(docker_host),
+                method: :patch do %>
+            <%= fa_icon :refresh %> Refresh
+          <% end %>
+        </td>
+        <td>
           <%= link_to edit_docker_host_path(docker_host) do %>
             <%= fa_icon :pencil %> Edit
           <% end %>

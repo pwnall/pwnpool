@@ -1,0 +1,8 @@
+hello_world_on_local:
+  host: local
+  docker_uid:  "ef872312fe1bbc5e05aae626791a47ee9b032efa8f3bda39cc0be7b56bfe59b9"
+  docker_parent_uid: "7fa0dcdc88de9c8a856f648c1f8e0cf8141a505bbddb7ecc0c61f1ed5e086852"
+  size: 0
+  virtual_size: 910
+  created_at: <%= Time.at(1412200953).inspect %>
+  read_at: <%= Time.now.inspect %>

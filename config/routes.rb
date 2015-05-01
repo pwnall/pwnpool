@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :docker_hosts
+  resources :docker_hosts do
+    member do
+      patch :refresh
+    end
+  end
 
   root to: 'session#show'
   authpwn_session

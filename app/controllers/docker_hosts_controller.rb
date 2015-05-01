@@ -1,6 +1,7 @@
 class DockerHostsController < ApplicationController
   before_action :authenticated_as_user
-  before_action :set_docker_host, only: [:show, :edit, :update, :destroy]
+  before_action :set_docker_host, only:
+      [:show, :edit, :update, :destroy, :refresh]
 
   # GET /docker_hosts
   # GET /docker_hosts.json
@@ -34,7 +35,7 @@ class DockerHostsController < ApplicationController
       if @docker_host.save
         @docker_host.ensure_version_info_updated
         format.html do
-          redirect_to docker_hosts,
+          redirect_to docker_hosts_url,
                       notice: "Docker host #{@docker_host.name} created."
         end
         format.json { render :show, status: :created, location: @docker_host }
@@ -71,6 +72,28 @@ class DockerHostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # PATCH/PUT /docker_hosts/1/refresh
+  # PATCH/PUT /docker_hosts/1/refresh.json
+  def refresh
+    version_info = @docker_host.version_info || @docker_host.build_version_info
+    respond_to do |format|
+      if version_info.read_from_host! && version_info.save
+        format.html do
+          redirect_to @docker_host, notice: 'Docker host info updated.'
+        end
+        format.json { render :show, status: :ok, location: @docker_host }
+      else
+        format.html do
+          redirect_to docker_hosts_url,
+              alert: 'Docker host info update failed.'
+        end
+        format.json { render :show, status: :ok, location: @docker_host }
+      end
+    end
+  end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

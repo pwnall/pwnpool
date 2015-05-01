@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20141127001938) do
 
-  create_table "credentials", force: true do |t|
+  create_table "credentials", force: :cascade do |t|
     t.integer  "user_id",    limit: 4,    null: false
     t.string   "type",       limit: 32,   null: false
     t.string   "name",       limit: 128
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20141127001938) do
   add_index "credentials", ["type", "updated_at"], name: "index_credentials_on_type_and_updated_at", using: :btree
   add_index "credentials", ["user_id", "type"], name: "index_credentials_on_user_id_and_type", using: :btree
 
-  create_table "docker_hosts", force: true do |t|
+  create_table "docker_hosts", force: :cascade do |t|
     t.integer  "user_id",         limit: 4,     null: false
     t.string   "name",            limit: 128,   null: false
     t.text     "url",             limit: 65535, null: false
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20141127001938) do
 
   add_index "docker_hosts", ["user_id", "name"], name: "index_docker_hosts_on_user_id_and_name", unique: true, using: :btree
 
-  create_table "docker_images", force: true do |t|
+  create_table "docker_images", force: :cascade do |t|
     t.integer  "host_id",           limit: 4,  null: false
     t.string   "docker_uid",        limit: 64, null: false
     t.string   "docker_parent_uid", limit: 64
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20141127001938) do
 
   add_index "docker_images", ["host_id", "docker_uid"], name: "index_docker_images_on_host_id_and_docker_uid", unique: true, using: :btree
 
-  create_table "docker_versions", force: true do |t|
+  create_table "docker_versions", force: :cascade do |t|
     t.integer  "host_id",          limit: 4,   null: false
     t.string   "os",               limit: 32,  null: false
     t.string   "arch",             limit: 32,  null: false
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20141127001938) do
 
   add_index "docker_versions", ["host_id"], name: "index_docker_versions_on_host_id", unique: true, using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "exuid",      limit: 32, null: false
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false

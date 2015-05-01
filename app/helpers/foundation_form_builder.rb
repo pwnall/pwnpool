@@ -29,41 +29,49 @@ class FoundationFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   # @private
+  # select is special-cased because of its arguments.
+  def select(attr, choices = nil, options = {}, html_options = {})
+    generic_field attr, options do
+      super
+    end
+  end
+
+  # @private
   # collection_select is special-cased because of its arguments.
-  def collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
-    generic_field method, options do
+  def collection_select(attr, collection, value_method, text_method, options = {}, html_options = {})
+    generic_field attr, options do
       super
     end
   end
 
   # @private
   # grouped_collection_select is special-cased because of its arguments.
-  def grouped_collection_select(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
-    generic_field method, options do
+  def grouped_collection_select(attr, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
+    generic_field attr, options do
       super
     end
   end
 
   # @private
   # time_zone_select is special-cased because of its arguments.
-  def time_zone_select(method, priority_zones = nil, options = {}, html_options = {})
-    generic_field method, options do
+  def time_zone_select(attr, priority_zones = nil, options = {}, html_options = {})
+    generic_field attr, options do
       super
     end
   end
 
   # @private
   # collection_radio_buttons is special-cased because of its arguments.
-  def collection_radio_buttons(method, collection, value_method, text_method, options = {}, html_options = {}, &block)
-    generic_field method, options do
+  def collection_radio_buttons(attr, collection, value_method, text_method, options = {}, html_options = {}, &block)
+    generic_field attr, options do
       super
     end
   end
 
   # @private
   # collection_check_boxes is special-cased because of its arguments.
-  def collection_check_boxes(method, collection, value_method, text_method, options = {}, html_options = {}, &block)
-    generic_field method, options do
+  def collection_check_boxes(attr, collection, value_method, text_method, options = {}, html_options = {}, &block)
+    generic_field attr, options do
       super
     end
   end
@@ -180,4 +188,3 @@ class FoundationFormBuilder::Icons < FoundationFormBuilder
     output
   end
 end
-

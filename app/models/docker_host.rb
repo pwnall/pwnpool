@@ -79,16 +79,24 @@ class DockerHost < ActiveRecord::Base
   def docker_connection!
     if uses_tls?
       cert_store = OpenSSL::X509::Store.new
-      cert_store.add_cert OpenSSL::X509::Certificate.new ca_cert_pem
+      cert_store.add_cert OpenSSL::X509::Certificate.new(ca_cert_pem)
+      #cert_store.add_cert OpenSSL::X509::Certificate.new(client_cert_pem)
+      #cert_store.trust = 100
+      #raise "Derp: #{cert_store.trust.inspect}"
+      #cert_store.trust = 0
       options = {
         scheme: 'https',
         certificate: client_cert_pem,
         private_key: client_key_pem,
-        ssl_cert_store: cert_store
+        ssl_cert_store: cert_store,
+        # HACK(pwnall): this awful hack is due to a bug in boot2docker's certs
+        # https://github.com/boot2docker/boot2docker/issues/808#issuecomment-98008135
+        ssl_verify_peer: false,
       }
     else
       options = {}
     end
+
     Docker::Connection.new url, options
   end
 
