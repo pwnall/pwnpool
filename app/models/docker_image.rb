@@ -63,7 +63,7 @@ class DockerImage < ActiveRecord::Base
     old_images = docker_host.images.index_by(&:docker_uid)
 
     begin
-      docker_objects = Docker::Image.all({all: true},
+      docker_objects = Docker::Image.all({ all: true, digests: true },
                                          docker_host.docker_connection)
     rescue Excon::Errors::Error
       return false

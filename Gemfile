@@ -38,10 +38,7 @@ gem 'foundation-rails', '>= 5.5.2.0'
 gem 'font-awesome-rails', '>= 4.3.0.0'
 
 # Docker API client.
-gem 'docker-api', '>= 1.15', require: 'docker'
-# TODO(pwnall): remove the GH branch reference when the relevant PR is merged
-#               https://github.com/excon/excon/pull/444
-gem 'excon', '>= 0.41.0', path: '../excon'
+gem 'docker-api', '>= 1.21.4', require: 'docker'
 
 # Host name generation.
 gem 'faker', '>= 1.4.3'
